@@ -1,64 +1,33 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { BrowserRouter, Route, Routes, Link, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
 
-import "./App.css";
-
-function Layout() {
-  return (
-    <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/cases">Support Cases</Link>
-          </li>
-          <li>
-            <Link to="/cases-detail">Detail of support cases</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-
-      <Outlet />
-    </>
-  );
-}
+import "App.css";
+import { Layout } from "components/Layout";
+import { Container } from "components/Container";
+import { NotFound } from "components/NotFound";
+import { FormSupportCases } from "components/SupportCases/FormSupportCases";
+import { SupportCases } from "components/SupportCases/SupportCases";
+import { SupportCasesDetails } from "components/SupportCases/SupportCasesDetails";
 
 const queryClient = new QueryClient();
-
-const Home = () => <h1>Home</h1>;
-const DataDisplay = () => <h1>Data Display</h1>;
-const DataDetail = () => <h1>Data Detail</h1>;
-function NoMatch() {
-  return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-    </div>
-  );
-}
 
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="cases" element={<DataDisplay />} />
-            <Route path="cases-detail" element={<DataDetail />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
+        <Container>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<FormSupportCases />} />
+              <Route path="cases" element={<SupportCases />} />
+              <Route path="cases-detail/:id" element={<SupportCasesDetails />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+          <Toaster richColors />
+        </Container>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

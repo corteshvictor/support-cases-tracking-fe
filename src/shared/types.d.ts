@@ -1,8 +1,8 @@
-export type Status = "Low" | "Medium" | "High" | "Critical";
-export type Priority = "Open" | "In Progress" | "Closed" | "Resolved";
+export type Priority = "Low" | "Medium" | "High" | "Critical";
+export type Status = "Open" | "In Progress" | "Closed" | "Resolved";
 
 export interface FormSupport {
-  number: number;
+  number: string;
   description: string;
   status: Status;
   priority: Priority;

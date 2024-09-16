@@ -1,3 +1,4 @@
+import { SUPPORT_CASES_API_URL } from "shared/constants";
 import {
   FormSupport,
   SupportCases,
@@ -5,8 +6,6 @@ import {
   SupportCasesResponse,
 } from "shared/types";
 import { removeFalsyValues } from "shared/utils";
-
-const SUPPORT_CASES_API_URL = "http://localhost:8000";
 
 export async function createSupportCase(data: FormSupport) {
   const response = await fetch(`${SUPPORT_CASES_API_URL}/support_cases`, {
@@ -34,8 +33,8 @@ export async function createSupportCase(data: FormSupport) {
     queryExecuted: supportCase.query_executed,
     executedBy: supportCase.executed_by,
     requester: supportCase.requester,
-    createdAt: new Date(supportCase.created_at),
-    updatedAt: new Date(supportCase.updated_at),
+    createdAt: supportCase.created_at,
+    updatedAt: supportCase.updated_at,
   };
 
   return mappedSupportCase;
@@ -69,8 +68,8 @@ export async function fetchSupportCases(filters?: SupportCasesFilters) {
     queryExecuted: supportCase.query_executed,
     executedBy: supportCase.executed_by,
     requester: supportCase.requester,
-    createdAt: new Date(supportCase.created_at),
-    updatedAt: new Date(supportCase.updated_at),
+    createdAt: supportCase.created_at,
+    updatedAt: supportCase.updated_at,
   }));
 
   return { cases: mappedSupportCases, info };
@@ -96,8 +95,8 @@ export async function getSupportCaseById(id: string) {
     queryExecuted: supportCase.query_executed,
     executedBy: supportCase.executed_by,
     requester: supportCase.requester,
-    createdAt: new Date(supportCase.created_at),
-    updatedAt: new Date(supportCase.updated_at),
+    createdAt: supportCase.created_at,
+    updatedAt: supportCase.updated_at,
   };
 
   return mappedSupportCase;
